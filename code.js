@@ -1,134 +1,117 @@
-var counter = document.getElementById("time");
-var x = 60;
-var isPlaying = false;
-var box1 = false;
-var box2 = false;
-var box3 = false;
-var box4 = false;
-var score = 0;
+let isPlaying = false;
+let box1 = false;
+let box2 = false;
+let box3 = false;
+let box4 = false;
+let score = 0;
+let timer = 60;
+
+let num1, num2;
+let answer, c1, c2, c3;
+let answers = [];
+
+const timeRemainnigBox = document.getElementById("timeRemainnig");
+const gameOverBox = document.getElementById("gameOver");
+const trueBox = document.getElementById("true");
+const wrongBox = document.getElementById("wrong");
+
+const finalScoreText = document.getElementById("finalScore");
+const timerText = document.getElementById("time");
+const scoreValueText = document.getElementById("scoreValue");
+const questionText = document.getElementById("question");
+
+const startGameButton = document.getElementById("start");
+const box1Button = document.getElementById("box1");
+const box2Button = document.getElementById("box2");
+const box3Button = document.getElementById("box3");
+const box4Button = document.getElementById("box4");
+
+startGameButton.onclick = playGame;
+box1Button.onclick = checkChoice1;
+box2Button.onclick = checkChoice2;
+box3Button.onclick = checkChoice3;
+box4Button.onclick = checkChoice4;
 
 const gameOverAudio = new Audio("game-over.mp3");
 const correctAudio = new Audio("correct.mp3");
 const wrongAudio = new Audio("wrong.mp3");
 
-function start() {
-  if (isPlaying == false) {
-    isPlaying = true;
-    document.getElementById("timeRemainnig").style.display = "block";
-    document.getElementById("start").innerHTML = "Reset Game";
-    myCounter = setInterval(timeRemainnig, 1000);
-    playGame();
-  } else {
-    isPlaying = false;
-    document.getElementById("timeRemainnig").style.display = "none";
-    document.getElementById("gameOver").style.display = "none";
-    document.getElementById("start").innerHTML = "Start Game";
-    clearTimeout(myCounter);
-    document.getElementById("time").innerHTML = 60;
-    x = 60;
-    score = 0;
-    document.getElementById("scoreValue").innerHTML = 0;
-  }
+const buttons = [
+  {
+    "button text": "Start Game",
+    "button function": playGame,
+    isPlaying: false,
+  },
+  {
+    "button text": "Reset Game",
+    "button function": resetGame,
+    isPlaying: true,
+  },
+];
+
+function updateButtons(buttons) {
+  startGameButton.innerHTML = buttons["button text"];
+  startGameButton.onclick = buttons["button function"];
+  isPlaying = buttons.isPlaying;
+}
+
+function resetGame() {
+  updateButtons(buttons[0]);
+  questionText.innerHTML = "";
+  box1Button.innerHTML = "";
+  box2Button.innerHTML = "";
+  box3Button.innerHTML = "";
+  box4Button.innerHTML = "";
+  timeRemainnigBox.style.display = "none";
+  gameOverBox.style.display = "none";
+  timer = 60;
+  score = 0;
+  timerText.innerHTML = 60;
+  scoreValueText.innerHTML = 0;
+  clearTimeout(myCounter);
 }
 
 function playGame() {
-  var num1 = Math.ceil(Math.random() * 9);
-  var num2 = Math.ceil(Math.random() * 9);
-  var answer = num1 * num2;
-  var c1 = Math.ceil(Math.random() * 9) * Math.ceil(Math.random() * 9);
-  var c2 = Math.ceil(Math.random() * 9) * Math.ceil(Math.random() * 9);
-  var c3 = Math.ceil(Math.random() * 9) * Math.ceil(Math.random() * 9);
-  var arr = [answer, c1, c2, c3];
-  console.log(arr);
-  shuffleArray(arr);
-  console.log(arr);
-  document.getElementById("question").innerHTML = num1 + " x " + num2;
-  document.getElementById("box1").innerHTML = arr[0];
-  document.getElementById("box2").innerHTML = arr[1];
-  document.getElementById("box3").innerHTML = arr[2];
-  document.getElementById("box4").innerHTML = arr[3];
-  if (arr[0] == answer) {
+  if (isPlaying === false) {
+    myCounter = setInterval(timeRemainnig, 1000);
+  }
+  timeRemainnigBox.style.display = "block";
+  updateButtons(buttons[1]);
+  generateQuestion();
+  shuffleArray(answers);
+  questionText.innerHTML = num1 + " x " + num2;
+  box1Button.innerHTML = answers[0];
+  box2Button.innerHTML = answers[1];
+  box3Button.innerHTML = answers[2];
+  box4Button.innerHTML = answers[3];
+  if (answers[0] === correctAnswer) {
     box1 = true;
-  }
-  if (arr[1] == answer) {
+  } else if (answers[1] === correctAnswer) {
     box2 = true;
-  }
-  if (arr[2] == answer) {
+  } else if (answers[2] === correctAnswer) {
     box3 = true;
-  }
-  if (arr[3] == answer) {
+  } else if (answers[3] === correctAnswer) {
     box4 = true;
   }
 }
 
-function checkChoice1() {
-  if (isPlaying == true) {
-    if (box1 == true) {
-      document.getElementById("true").style.display = "block";
-      setTimeout(hideTrue, 1500);
-      incScore();
-      box1 = false;
-      correctAudio.play();
-      playGame();
-    } else {
-      document.getElementById("wrong").style.display = "block";
-      wrongAudio.play();
-      setTimeout(hideFalse, 1500);
-    }
+function generateQuestion() {
+  num1 = Math.ceil(Math.random() * 9);
+  num2 = Math.ceil(Math.random() * 9);
+  correctAnswer = num1 * num2;
+  while (
+    correctAnswer === c1 ||
+    correctAnswer === c2 ||
+    correctAnswer === c3 ||
+    c1 === c2 ||
+    c1 === c3 ||
+    c2 === c3
+  ) {
+    c1 = Math.ceil(Math.random() * 9) * Math.ceil(Math.random() * 9);
+    c2 = Math.ceil(Math.random() * 9) * Math.ceil(Math.random() * 9);
+    c3 = Math.ceil(Math.random() * 9) * Math.ceil(Math.random() * 9);
   }
-}
-function checkChoice2() {
-  if (isPlaying == true) {
-    if (box2 == true) {
-      document.getElementById("true").style.display = "block";
-      setTimeout(hideTrue, 1500);
-      incScore();
-      box2 = false;
-      correctAudio.play();
-      playGame();
-    } else {
-      document.getElementById("wrong").style.display = "block";
-      wrongAudio.play();
-      setTimeout(hideFalse, 1500);
-    }
-  }
-}
-function checkChoice3() {
-  if (isPlaying == true) {
-    if (box3 == true) {
-      document.getElementById("true").style.display = "block";
-      setTimeout(hideTrue, 1500);
-      incScore();
-      box3 = false;
-      correctAudio.play();
-      playGame();
-    } else {
-      document.getElementById("wrong").style.display = "block";
-      wrongAudio.play();
-      setTimeout(hideFalse, 1500);
-    }
-  }
-}
-function checkChoice4() {
-  if (isPlaying == true) {
-    if (box4 == true) {
-      document.getElementById("true").style.display = "block";
-      setTimeout(hideTrue, 1500);
-      incScore();
-      box4 = false;
-      correctAudio.play();
-      playGame();
-    } else {
-      document.getElementById("wrong").style.display = "block";
-      wrongAudio.play();
-      setTimeout(hideFalse, 1500);
-    }
-  }
-}
-
-function incScore() {
-  score++;
-  document.getElementById("scoreValue").innerHTML = score;
+  answers = [correctAnswer, c1, c2, c3];
 }
 
 function shuffleArray(array) {
@@ -141,28 +124,97 @@ function shuffleArray(array) {
   }
 }
 
+function checkChoice1() {
+  if (isPlaying === true) {
+    if (box1 === true) {
+      trueBox.style.display = "block";
+      setTimeout(hideTrue, 1500);
+      incScore();
+      box1 = false;
+      correctAudio.play();
+      playGame();
+    } else {
+      wrongBox.style.display = "block";
+      wrongAudio.play();
+      setTimeout(hideFalse, 1500);
+    }
+  }
+}
+function checkChoice2() {
+  if (isPlaying === true) {
+    if (box2 === true) {
+      trueBox.style.display = "block";
+      setTimeout(hideTrue, 1500);
+      incScore();
+      box2 = false;
+      correctAudio.play();
+      playGame();
+    } else {
+      wrongBox.style.display = "block";
+      wrongAudio.play();
+      setTimeout(hideFalse, 1500);
+    }
+  }
+}
+function checkChoice3() {
+  if (isPlaying === true) {
+    if (box3 === true) {
+      trueBox.style.display = "block";
+      setTimeout(hideTrue, 1500);
+      incScore();
+      box3 = false;
+      correctAudio.play();
+      playGame();
+    } else {
+      wrongBox.style.display = "block";
+      wrongAudio.play();
+      setTimeout(hideFalse, 1500);
+    }
+  }
+}
+function checkChoice4() {
+  if (isPlaying === true) {
+    if (box4 === true) {
+      trueBox.style.display = "block";
+      setTimeout(hideTrue, 1500);
+      incScore();
+      box4 = false;
+      correctAudio.play();
+      playGame();
+    } else {
+      wrongBox.style.display = "block";
+      wrongAudio.play();
+      setTimeout(hideFalse, 1500);
+    }
+  }
+}
+
+function incScore() {
+  score++;
+  scoreValueText.innerHTML = score;
+}
+
 function timeRemainnig() {
-  if (x == 0) {
+  if (timer === 1) {
     clearInterval(myCounter);
     isPlaying = false;
     showResult();
   }
-  x--;
-  counter.innerHTML = x;
+  timer--;
+  timerText.innerHTML = timer;
 }
 
 function hideTrue() {
-  document.getElementById("true").style.display = "none";
+  trueBox.style.display = "none";
 }
 
 function hideFalse() {
-  document.getElementById("wrong").style = "none";
+  wrongBox.style = "none";
 }
 
 function showResult() {
-  document.getElementById("gameOver").style.display = "block";
-  document.getElementById("finalScore").innerHTML =
-    document.getElementById("scoreValue").innerHTML;
+  gameOverBox.style.display = "block";
+  finalScoreText.innerHTML = scoreValueText.innerHTML;
   gameOverAudio.play();
   startConfetti();
 }
