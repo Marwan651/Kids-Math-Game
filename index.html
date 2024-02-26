@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>Maths Game</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div id="container">
+            <div id="score">
+                Score: <span id="scoreValue">0</span>
+            </div>
+            <div id="true">
+                Correct
+            </div>
+            <div id="wrong">
+                Try again
+            </div>
+            <div id="question">
+                
+            </div>
+            <div id="instruction">
+                Click on the correct answer
+            </div>
+            <div id="choices">
+                <div id="box1" class="box" onclick="checkChoice1()"></div>
+                <div id="box2" class="box" onclick="checkChoice2()"></div>
+                <div id="box3" class="box" onclick="checkChoice3()"></div>
+                <div id="box4" class="box" onclick="checkChoice4()"></div>
+            </div>
+            <div id="start" onclick="start()">
+                Start Game
+            </div>
+            <div id="timeRemainnig">
+                Time Remainning: <span id="time">60</span> sec
+            </div>
+            <div id="gameOver">
+                <p>GAME OVER!</p>
+                <p>YOUR SCORE IS <span id="finalScore">20</span>.</p>
+            </div>
+        </div>
+        <script src="code.js"></script>
+        <script src="confetti.js"></script>
+    </body>
+</html>

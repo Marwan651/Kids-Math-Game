@@ -1,0 +1,138 @@
+html {
+    height: 100%;
+    background: radial-gradient(circle, white, grey);
+}
+
+#container {
+    height: 410px;
+    width: 600px;
+    background-color: #99CEEC;
+    margin: 100px auto;
+    padding: 20px;
+    box-shadow: 0px 5px #128BD2;
+    border-radius: 10px;
+    position: relative;
+}
+
+#score {
+    background-color: #F2F88D;
+    position: absolute;
+    left: 550px;
+    padding: 10px;
+    box-shadow: 0px 3px #9AA154;
+}
+
+#true {
+    position: absolute;
+    left: 280px;
+    background-color: #37CA4F;
+    color: white;
+    padding: 10px;
+    display: none;
+}
+
+#wrong {
+    position: absolute;
+    left: 280px;
+    background-color: #d3401a;
+    color: white;
+    padding: 10px;
+    display: none;
+}
+
+#question {
+    width: 500px;
+    height: 150px;
+    background-color: #9CA4EE;
+    margin: 50px auto 10px auto;
+    box-shadow: 0px 5px #4D62A2;
+    font-size: 6em;
+    text-align: center;
+    font-family: cursive, sans-serif;
+}
+
+#instruction {
+    width: 500px;
+    height: 50px;
+    background-color: #B78ADC;
+    margin: 0px auto 5px auto;
+    box-shadow: 0px 5px #845CAB;
+    text-align: center;
+    line-height: 45px;
+}
+
+#choices {
+    width: 500px;
+    height: 100px;
+    margin: 10px auto;
+}
+
+.box {
+    width: 90px;
+    height: 90px;
+    background-color: white;
+    float: left;
+    margin-right: 46px;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 0px 5px #7EA4B9;
+    text-align: center;
+    line-height: 90px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.box:hover, #start:hover {
+    background-color: #9E90FB;
+    box-shadow: 0px 5px #6B5EDA;
+    color: white;
+}
+
+.box:active, #start:active {
+    box-shadow: 0px 0px #6B5EDA;
+    top: 5px;
+}
+
+#box4 {
+    margin-right: 0px;
+}
+
+#start {
+    width: 78px;
+    background-color: #CEE8F5;
+    margin: 0px auto;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0px 5px #7AA3BF;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+}
+
+#timeRemainnig {
+    background-color: #ADD74A;
+    padding: 10px;
+    box-shadow: 0px 5px #7DA4C3;
+    border-radius: 3px;
+    position: absolute;
+    left: 430px;
+    top: 400px;
+    /* visibility: hidden; */
+    display: none;
+}
+
+#gameOver {
+    width: 530px;
+    height: 200px;
+    background: linear-gradient(to top, #EE7C74, #FBC968);
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    padding: 10px;
+    /* margin: 10px auto; */
+    position: absolute;
+    top: 100px;
+    left: 40px;
+    z-index: 2;
+    display: none;
+}
