@@ -32,9 +32,9 @@ box2Button.onclick = checkChoice2;
 box3Button.onclick = checkChoice3;
 box4Button.onclick = checkChoice4;
 
-const gameOverAudio = new Audio("game-over.mp3");
-const correctAudio = new Audio("correct.mp3");
-const wrongAudio = new Audio("wrong.mp3");
+const gameOverAudio = new Audio("./sounds-effect/game-over.mp3");
+const correctAudio = new Audio("./sounds-effect/correct.mp3");
+const wrongAudio = new Audio("./sounds-effect/wrong.mp3");
 
 const buttons = [
   {
